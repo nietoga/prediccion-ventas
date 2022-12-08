@@ -35,6 +35,6 @@ def seman(Semana, df):
     for i in range(len(datSem)):
         unidadesDat = df[df['Cluster'] == datSem.iloc[i]['Cluster']]
         unidadesDatre = unidadesDat['UNIDADES'][unidadesDat['PRENDA'] == datSem.iloc[i]['PRENDA']]
-        prd.iloc[i] = (datSem.iloc[i]['PRENDA'], unidadesDatre.median())
+        prd.iloc[i] = (datSem.iloc[i]['PRENDA'], int(unidadesDatre.median()))
 
     return prd
