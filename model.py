@@ -19,6 +19,9 @@ def predictInve(tienda,semana):
     kmeans = KMeans(n_clusters = 25, random_state = 250).fit(df_en) #original df_en
     df_en['Cluster'] = kmeans.labels_
 
+    # Volver a ponerle a las prendas su valor
+    df_en['PRENDA'] = enc1.inverse_transform(df_en['PRENDA'])
+
     dretu = seman(semana,df_en)
     return dretu
 
