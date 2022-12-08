@@ -1,3 +1,11 @@
+from fastapi import FastAPI
+
 from service import predecir
 
-print(predecir('MOLINOS 1', 5))
+app = FastAPI()
+
+
+@app.get("/predecir")
+async def root(tienda: str, semana: int):
+    result = predecir(tienda, semana)
+    return result.to_dict(orient='records')
