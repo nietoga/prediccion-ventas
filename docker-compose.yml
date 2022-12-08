@@ -1,0 +1,8 @@
+services:
+  server:
+    image: anietog1/prediccion-ventas:latest
+    restart: always
+    environment:
+      - DATABASE_SOURCE=s3://predecir-ventas-data/bdCompletarAgrupRefinada.csv
+    expose:
+      - 80:80
