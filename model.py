@@ -4,7 +4,7 @@ from sklearn.cluster import KMeans
 
 def predictInve(tienda,semana):
     ##Trae los datos con los que entrena el modelo, cambiar por las sentencias desde S3
-    df = pd.read_csv('./bdCompletarAgrupRefinada.csv',  parse_dates=[2], infer_datetime_format= True)
+    df = pd.read_csv('s3://predecir-ventas-data/bdCompletarAgrupRefinada.csv',  parse_dates=[2], infer_datetime_format= True)
     df["UNIDADES"] = pd.to_numeric(df["UNIDADES"])
     dretu = pd.DataFrame()
     datSem = df[df['TIENDA'] == tienda]
