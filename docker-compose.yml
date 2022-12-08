@@ -4,5 +4,5 @@ services:
     restart: always
     environment:
       - DATABASE_SOURCE=s3://predecir-ventas-data/bdCompletarAgrupRefinada.csv
-    expose:
+    ports:
       - 80:80
