@@ -16,7 +16,7 @@ app.add_middleware(
 
 
 @app.get("/predecir")
-async def predecir_get(tienda: str, semana: int = Query(ge=1, le=52)):
+async def predecir_get(tienda: str, semana: int = Query(ge=1, le=53)):
     result = predecir(tienda, semana)
     return result.to_dict(orient='records')
 
