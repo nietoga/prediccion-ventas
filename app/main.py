@@ -1,5 +1,5 @@
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 
 from service import predecir, actualizar
@@ -16,7 +16,7 @@ app.add_middleware(
 
 
 @app.get("/predecir")
-async def predecir_get(tienda: str, semana: int):
+async def predecir_get(tienda: str, semana: int = Query(ge=1, le=52)):
     result = predecir(tienda, semana)
     return result.to_dict(orient='records')
 
