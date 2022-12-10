@@ -1,11 +1,18 @@
+import joblib
+import os
 import pandas as pd
 from sklearn import preprocessing
 from sklearn.cluster import KMeans
 
-import os
+
+def loadFit(tienda):
+    try:
+        return joblib.load(f"fit.{tienda}.joblib")
+    except FileNotFoundError:
+        return None
 
 
-def predictInve(tienda, semana):
+def createFit(tienda):
     ##Trae los datos con los que entrena el modelo, cambiar por las sentencias desde S3
     df = pd.read_csv(os.getenv("DATABASE_SOURCE"), parse_dates=[2],
                      infer_datetime_format=True)
@@ -26,7 +33,21 @@ def predictInve(tienda, semana):
     # Volver a ponerle a las prendas su valor
     df_en['PRENDA'] = enc1.inverse_transform(df_en['PRENDA'])
 
-    dretu = seman(semana, df_en)
+    return df_en
+
+
+def saveFit(fit, tienda):
+    joblib.dump(fit, f"fit.{tienda}.joblib")
+
+
+def predictInve(tienda, semana):
+    fit = loadFit(tienda)
+
+    if fit is None:
+        fit = createFit(tienda)
+        saveFit(fit, tienda)
+
+    dretu = seman(semana, fit)
     return dretu
 
 
